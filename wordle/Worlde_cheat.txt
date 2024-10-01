@@ -1,0 +1,290 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        String[][] words = words_Splie();
+        String[] whole_words = whole_words();
+        Scanner scanner = new Scanner(System.in);
+        List<String> wholewords = new ArrayList<>(Arrays.asList(whole_words));
+
+        for (int guess_count = 0; guess_count < 5; guess_count++) {
+            StdOut.print("are there correct letters yes no: ");
+            String letters = scanner.nextLine();
+            if (Objects.equals(letters, "yes")) {
+                StdOut.print("please input correct letters: ");
+                String correct_letters = scanner.nextLine();
+                String[] correct = new String[correct_letters.length()];
+                for (int i = 0; i < correct_letters.length(); i++) {
+                    correct[i] = String.valueOf(correct_letters.charAt(i));
+                }
+                int k = 1;
+                for (int i = 0; i < words.length; i++) {
+                    for (int t = 0; t < 5; t++) {
+                        for (int j = 0; j < correct.length; j++) {
+
+                            if (!Objects.equals(words[i][0], correct[j])) {
+                                if (!Objects.equals(words[i][1], correct[j])) {
+                                    if (!Objects.equals(words[i][2], correct[j])) {
+                                        if (!Objects.equals(words[i][3], correct[j])) {
+                                            if (!Objects.equals(words[i][4], correct[j])) {
+                                                k++;
+                                                if (k == 5 - correct_letters.length()) {
+                                                    for (int q = 0; q < 5; q++) {
+                                                        words[i][q] = "null";
+                                                    }
+                                                    k = 0;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+
+                            } //else if (Objects.equals(words[i][j], correct[j])) {
+                            // j = 5;
+                            // }
+
+
+                        }
+                    }
+                }
+            }
+
+
+            //System.out.print(Arrays.deepToString(words));
+            StdOut.print("are there correct letters yes or no: ");
+            String incorrec = scanner.nextLine();
+            if (Objects.equals(incorrec, "yes")) {
+                StdOut.print("please input incorrect letters: ");
+                String incorrect_letters = scanner.nextLine();
+                String[] incorrect = new String[incorrect_letters.length()];
+                for (int i = 0; i < incorrect_letters.length(); i++) {
+                    incorrect[i] = String.valueOf(incorrect_letters.charAt(i));
+                }
+                //System.out.print(Arrays.toString(incorrect));
+                for (int k = 0; k < words.length; k++) {
+                    for (int j = 0; j < 5; j++) {
+                        for (int q = 0; q < incorrect_letters.length(); q++) {
+                            if (Objects.equals(words[k][j], incorrect[q])) {
+                                for (int t = 0; t < 5; t++) {
+
+                                    words[k][t] = "null";
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            String[] correct_place = new String[5];
+            StdOut.print("are there correctly placed letters: ");
+            String yes_no = scanner.nextLine();
+            if (Objects.equals(yes_no, "yes")) {
+                StdOut.println("if spot is not correct please input null ");
+                StdOut.println("please input  first letter placed letters: ");
+                String correctly = scanner.nextLine();
+                correct_place[0] = correctly;
+                StdOut.println("please input  second letter placed letters: ");
+                String correctl = scanner.nextLine();
+                correct_place[1] = correctl;
+                StdOut.println("please input  third letter placed letters: ");
+                String corr = scanner.nextLine();
+                correct_place[2] = corr;
+                StdOut.println("please input  fourth letter placed letters: ");
+                String c = scanner.nextLine();
+                correct_place[3] = c;
+                StdOut.println("please input  5th letter placed letters: ");
+                String correc = scanner.nextLine();
+                correct_place[4] = correc;
+                for (int i = 0; i < words.length; i++) {
+                    if (!Objects.equals(correct_place[0], "null")) {
+                        if (!Objects.equals(words[i][0], correct_place[0])) {
+                            for (int t = 0; t < 5; t++) {
+
+                                words[i][t] = "null";
+                            }
+                        }
+                    }
+                    if (!Objects.equals(correct_place[1], "null")) {
+                        if (!Objects.equals(words[i][1], correct_place[1])) {
+                            for (int t = 0; t < 5; t++) {
+
+                                words[i][t] = "null";
+                            }
+                        }
+                    }
+                    if (!Objects.equals(correct_place[2], "null")) {
+                        if (!Objects.equals(words[i][2], correct_place[2])) {
+                            for (int t = 0; t < 5; t++) {
+
+                                words[i][t] = "null";
+                            }
+                        }
+                    }
+                    if (!Objects.equals(correct_place[3], "null")) {
+                        if (!Objects.equals(words[i][3], correct_place[3])) {
+                            for (int t = 0; t < 5; t++) {
+
+                                words[i][t] = "null";
+                            }
+                        }
+                    }
+                    if (!Objects.equals(correct_place[4], "null")) {
+                        if (!Objects.equals(words[i][4], correct_place[4])) {
+                            for (int t = 0; t < 5; t++) {
+
+                                words[i][t] = "null";
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            ///////////////////////////////////////////////////////////////////////////////////////
+            String[] incorrect_place = new String[5];
+            StdOut.print("are there correctly placed letters: ");
+            String yes = scanner.nextLine();
+            if (Objects.equals(yes, "yes")) {
+                StdOut.println("if spot is correct or a grey please input null ");
+                StdOut.println("please input  first letter placed letters: ");
+                String correctly = scanner.nextLine();
+                incorrect_place[0] = correctly;
+                StdOut.println("please input  second letter placed letters: ");
+                String correctl = scanner.nextLine();
+                incorrect_place[1] = correctl;
+                StdOut.println("please input  third letter placed letters: ");
+                String corr = scanner.nextLine();
+                incorrect_place[2] = corr;
+                StdOut.println("please input  fourth letter placed letters: ");
+                String c = scanner.nextLine();
+                incorrect_place[3] = c;
+                StdOut.println("please input  5th letter placed letters: ");
+                String correc = scanner.nextLine();
+                incorrect_place[4] = correc;
+                for (int i = 0; i < words.length; i++) {
+                    if (!Objects.equals(incorrect_place[0], "null")) {
+                        if (Objects.equals(words[i][0], incorrect_place[0])) {
+
+                            for (int t = 0; t < 5; t++) {
+
+                                words[i][t] = "null";
+                            }
+                        }
+                    }
+                    if (!Objects.equals(incorrect_place[1], "null")) {
+                        if (Objects.equals(words[i][1], incorrect_place[1])) {
+
+                            for (int t = 0; t < 5; t++) {
+
+                                words[i][t] = "null";
+                            }
+                        }
+                    }
+                    if (!Objects.equals(incorrect_place[2], "null")) {
+                        if (Objects.equals(words[i][2], incorrect_place[2])) {
+
+                            for (int t = 0; t < 5; t++) {
+
+                                words[i][t] = "null";
+                            }
+                        }
+                    }
+                    if (!Objects.equals(incorrect_place[3], "null")) {
+                        if (Objects.equals(words[i][3], incorrect_place[3])) {
+
+                            for (int t = 0; t < 5; t++) {
+
+                                words[i][t] = "null";
+                            }
+                        }
+                    }
+                    if (!Objects.equals(incorrect_place[4], "null")) {
+                        if (Objects.equals(words[i][4], incorrect_place[4])) {
+
+                            for (int t = 0; t < 5; t++) {
+                                
+                                words[i][t] = "null";
+                            }
+                        }
+                    }
+                }
+
+
+            }
+
+            //////////////////////////////////////////////////////////////////////////////////////
+            for (int i = 0; i < words.length; i++) {
+                if (!Objects.equals(words[i][0], "null")) {
+                    for (int p = 0; p < 5; p++) {
+                        System.out.print(words[i][p]);
+                    }
+                    System.out.println("");
+                }
+
+            }
+
+        }
+    }
+
+
+    public static String[][] words_Splie() throws IOException {
+        File wordle = new File("C:\\Users\\brown\\IdeaProjects\\wordle_cheat\\src\\words.txt");
+        String[][] words = new String[5757][5];
+        String line;
+        BufferedReader br = new BufferedReader(new FileReader(wordle));
+        //while ((line = br.readLine()) != null) {
+        // System.out.println(line);
+        // }
+        int wordnum = 0;
+        while (wordnum < 5757) {
+            line = br.readLine();
+
+            //String[] word = new String[5];
+            //String word = StdIn.readString();
+            //word[0].split("");
+
+            for (int i = 0; i < 5; i++) {
+                words[wordnum][i] = String.valueOf(line.charAt(i));
+            }
+            wordnum++;
+
+
+        }
+        //System.out.print(Arrays.deepToString(words));
+        return words;
+    }
+
+    public static String[] whole_words() throws IOException {
+        File wordle = new File("C:\\Users\\brown\\IdeaProjects\\wordle_cheat\\src\\words.txt");
+        String[] words = new String[5757];
+        String line;
+        BufferedReader br = new BufferedReader(new FileReader(wordle));
+        //while ((line = br.readLine()) != null) {
+        // System.out.println(line);
+        // }
+        int wordnum = 0;
+        while (wordnum < 5757) {
+            line = br.readLine();
+
+            //String[] word = new String[5];
+            //String word = StdIn.readString();
+            //word[0].split("");
+
+
+            words[wordnum] = String.valueOf(line);
+
+            wordnum++;
+
+
+        }
+        //System.out.print(Arrays.deepToString(words));
+        return words;
+    }
+}
